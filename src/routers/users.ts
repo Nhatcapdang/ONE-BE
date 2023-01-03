@@ -1,7 +1,6 @@
 import express from 'express';
 import { addUser, getAllusers } from '../controller/users';
-import users from '../model/users';
-export const userRouter = express.Router();
+const userRouter = express.Router();
 
 userRouter.get('/', getAllusers);
 
@@ -37,4 +36,4 @@ userRouter
 //   res.send(`delete user ${req.params.id}`);
 // });
 
-exports = { userRouter };
+export { userRouter };

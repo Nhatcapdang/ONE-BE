@@ -1,7 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import { userRouter } from './routers/users';
-import { addUser, getAllusers } from './controller/users';
+import { userRouter } from './src/routers/users';
+import { createOrderRouter } from './src/momo/route';
 const app = express();
 
 // allow access req.body
@@ -15,6 +15,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/users', userRouter);
+app.use('/momo', createOrderRouter);
 
 mongoose
   .connect(
