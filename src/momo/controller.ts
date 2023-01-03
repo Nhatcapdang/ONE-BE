@@ -1,12 +1,22 @@
+import { momoPayment } from '../config/axios';
+import { apiMomo } from '../config/axios/apiMomo';
 import { Request, Response, NextFunction } from 'express';
-import { momo } from './payment';
 
 export const createOrder = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const body = req.body;
-  const x = await momo();
-  console.log('createOrder', body, x);
+  const body: IOrderPaymentMethodParams = req.body;
+  try {
+    const respons = await momoPayment<
+      IOrderPaymentMethodRes,
+      IOrderPaymentMethodParams
+    >(apiMomo.orderPaymentMethod, body);
+    return res.json(respons);
+  } catch (error) {
+    return res.status(500).json(error);
+  } finally {
+    next();
+  }
 };

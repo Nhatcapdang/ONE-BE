@@ -1,14 +1,9 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 
 const axiosProviderMomo = axios.create({
-  baseURL: process.env.REACT_APP_MOMO,
-  proxy: {
-    protocol: 'https',
-    host: '118.69.212.158',
-    port: 9000,
-  },
+  baseURL: 'https://test-payment.momo.vn',
   headers: {
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/json; charset=UTF-8',
   },
 });
 
@@ -38,7 +33,7 @@ export async function momoPayment<T, P = IParams>(
     });
     return res.data;
   } catch (err) {
-    const res = <AxiosError<IError>>err;
-    return Promise.reject(res.response?.data ?? {});
+    const res = <AxiosError<IErrorMomo>>err;
+    return res.response?.data;
   }
 }
